@@ -1,0 +1,175 @@
+import re
+import pickle
+import copy
+from itertools import groupby
+from collections import Counter
+
+# 1. Prime Number
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+# 2. Factorial
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+# 3. Fibonacci Series
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        print(a, end=" ")
+        a, b = b, a + b
+    print()
+
+# 4. Palindrome
+def is_palindrome(s):
+    return s == s[::-1]
+
+# 5. Reverse String Without Inbuilt Method
+def reverse_string(s):
+    rev = ""
+    for char in s:
+        rev = char + rev
+    return rev
+
+# 6. Flatten Nested List
+def flatten(lst):
+    res = []
+    for i in lst:
+        if isinstance(i, list):
+            res.extend(flatten(i))
+        else:
+            res.append(i)
+    return res
+
+# 7. Extract Numbers from String
+def extract_numbers(s):
+    return [list(map(int, x)) for x in re.findall(r'\d+', s)]
+
+# 8. Armstrong Number
+def is_armstrong(n):
+    digits = list(map(int, str(n)))
+    return n == sum(d**len(digits) for d in digits)
+
+# 9. Count Vowels and Consonants
+def count_vowels_consonants(s):
+    vowels = "aeiouAEIOU"
+    v_count = sum(1 for char in s if char in vowels)
+    c_count = sum(1 for char in s if char.isalpha() and char not in vowels)
+    return v_count, c_count
+
+# 10. Swap Variables Without a Third Variable
+def swap_variables(a, b):
+    a, b = b, a
+    return a, b
+
+# 11. Find Minimum Number in List
+def find_min(lst):
+    return min(lst)
+
+# 12. Pickling and Unpickling
+def pickle_data(data, filename):
+    with open(filename, "wb") as f:
+        pickle.dump(data, f)
+
+def unpickle_data(filename):
+    with open(filename, "rb") as f:
+        return pickle.load(f)
+
+# 13. Sum of Numbers in String
+def sum_numbers_in_string(s):
+    return sum(map(int, re.findall(r'\d+', s)))
+
+# 14. Sort List
+def sort_list(lst):
+    return sorted(lst)
+
+# 15. Shallow and Deep Copy
+def shallow_deep_copy(lst):
+    return copy.copy(lst), copy.deepcopy(lst)
+
+# 16 & 17. Reverse String Preserving Spaces
+def reverse_preserving_spaces(s):
+    chars = [c for c in s if c.isalnum()]
+    return ''.join(chars.pop() if c.isalnum() else c for c in s)
+
+# 18. Decode Encoded String
+def decode_string(s):
+    return re.sub(r'(\d+)\[([a-z]+)\]', lambda m: int(m.group(1)) * m.group(2), s)
+
+# 19. Sort Words by Numbers
+def sort_words_by_numbers(s):
+    return " ".join(sorted(s.split(), key=lambda w: sorted(w)))
+
+# 20. Max Consecutive Ones in Binary List
+def max_consecutive_ones(nums):
+    return max(map(len, ''.join(map(str, nums)).split("0")))
+
+# 21. Difference Between `is` and `==`
+def compare_is_and_eq():
+    a = [1, 2, 3]
+    c = [1, 2, 3]
+    return a == c, a is c
+
+# 22. Run-Length Encoding
+def run_length_encoding(s):
+    return "".join(f"{k}{len(list(g))}" for k, g in groupby(s))
+
+# 23. Print Star Pattern
+def print_star_pattern(n):
+    for i in range(1, n + 1):
+        print("*" * i)
+
+# 24. Lambda Function
+square = lambda x: x**2
+
+# 25. Regular Expression Example
+def find_numbers_with_regex(text):
+    return re.findall(r"\d+", text)
+
+# 26. Longest Common Prefix
+def longest_common_prefix(strs):
+    prefix = strs[0]
+    for s in strs[1:]:
+        while not s.startswith(prefix):
+            prefix = prefix[:-1]
+    return prefix
+
+# 27. Find Duplicate Numbers
+def find_duplicate_numbers(s):
+    return [k for k, v in Counter(s).items() if v > 1]
+
+# Test cases
+if __name__ == "__main__":
+    print("Prime:", is_prime(17))
+    print("Factorial:", factorial(5))
+    fibonacci(10)
+    print("Palindrome:", is_palindrome("madam"))
+    print("Reverse String:", reverse_string("hello"))
+    print("Flatten List:", flatten([1, 2, [3, 4, [5, 6]], 7]))
+    print("Extract Numbers:", extract_numbers("abcd1234efg4hij5678kl9mno"))
+    print("Armstrong:", is_armstrong(153))
+    print("Vowels & Consonants:", count_vowels_consonants("I am an Engineer"))
+    print("Swap Variables:", swap_variables(5, 10))
+    print("Min Number:", find_min([50, 40, 20, 10, 90]))
+    print("Sum of Numbers in String:", sum_numbers_in_string("Sony12India567Pvt2ltd"))
+    print("Sorted List:", sort_list([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]))
+    print("Reverse Preserving Spaces:", reverse_preserving_spaces("I am the engineer"))
+    print("Decoded String:", decode_string("3[a]1[l]3[mm]2[bc]"))
+    print("Sorted Words:", sort_words_by_numbers("3a stri4ng 2is Thi1s"))
+    print("Max Consecutive Ones:", max_consecutive_ones([1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1]))
+    print("Is vs Equals:", compare_is_and_eq())
+    print("Run-Length Encoding:", run_length_encoding("aaaabbbcccppxxx"))
+    print("Longest Common Prefix:", longest_common_prefix(["flower", "flow", "flight"]))
+    print("Duplicate Numbers:", find_duplicate_numbers("1112234456678991"))
+    print("Lambda Square:", square(5))
+    print("Find Numbers with Regex:", find_numbers_with_regex("There are 100 apples"))
+    
+    print("\nStar Pattern:")
+    print_star_pattern(5)
